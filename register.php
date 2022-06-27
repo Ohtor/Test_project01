@@ -45,13 +45,25 @@ if (isset($_POST['username'], $_POST['password'], $_POST['repeat_password']))
 		<title> Project test registration </title>
 	</head>
 	<body>
-		<p>	
+		<div>	
 			<?php
 			
-			
+			if (empty($errors) === false)
+			{?>
+			<ul>
+				<?php 
+				
+				foreach ($errors as $error)
+				{
+					echo "<li>{$error}</li>";
+				}
+				?>
+			</ul>
+				
+			}
 			
 			?>
-		</p>
+		</div>
 		<form action="" method="post">
 			<p>
 				<label for="username">email:</label>
