@@ -1,28 +1,33 @@
 <?php
-
+//$path = dirname(__FILE__);
+//require_once 'DB.php';
+//include("{$path}/DB.php");
+$DataBase = mysqli_connect("localhost", "root", "", "project01");
 function user_exists($user)
 {
-	//$user = mysqli_escape_string(string, $user);
+	$DataBase = mysqli_connect("localhost", "root", "", "project01");
+	$user = mysqli_real_escape_string($DataBase, $user);
 	
-	$total = mysqli_query("SELECT COUNT('user_id') FROM 'users' WHERE 'email' = '{$user}'");
-	
-	return (mysql_result($total, 0) == '1') ? true : false;
+	$total = "SELECT * FROM users WHERE email = '{$user}'LIMIT 1";
+	$results = mysqli_query($DataBase, $total);
+	return mysqli_fetch_assoc($results);
 }
 	
 function valid_credentials($user, $pass)
 {
-	//$user = mysqli_escape_string(string, $user);
+	$DataBase = mysqli_connect("localhost", "root", "", "project01");
+	$user = mysqli_real_escape_string($DataBase, $user);
 	$pass = sha1($pass);
-	
-	$total = mysqli_query("SELECT COUNT('user_id') FROM 'users' WHERE 'email' = '{$user}' AND 'password' = '{$pass}'");
-	
-	return (mysql_result($total, 0) == '1') ? true : false;
+	$total = "SELECT * FROM users WHERE email = '{$user}' AND password = '{$pass}' ";
+	$results = mysqli_query($DataBase, $total);
+	return mysqli_num_results($results);
 }
 
 function add_user($user, $pass)
 {
-	//$user = mysqli_escape_string(htmlentities(string, $user));
+	$DataBase = mysqli_connect("localhost", "root", "", "project01");
+	$user = mysqli_real_escape_string($DataBase, htmlentities($user));
 	$pass = sha1($pass);
 	
-	mysqli_query("INSERT INTO 'users' ('email', 'password') VALUES ('{$user}', '{$pass}')");
+	$DataBase->query("INSERT INTO users (email, password) VALUES ('{$user}', '{$pass}')");
 }

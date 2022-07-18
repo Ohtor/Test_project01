@@ -4,6 +4,8 @@ include ('core/init.inc.php');
 
 $errors = array();
 
+
+
 if (isset($_POST['username'], $_POST['password'], $_POST['repeat_password']))
 {
 	if (empty($_POST['username']))
@@ -59,7 +61,7 @@ if (isset($_POST['username'], $_POST['password'], $_POST['repeat_password']))
 				}
 				?>
 			</ul>
-				
+			<?php
 			}
 			
 			?>
@@ -67,7 +69,7 @@ if (isset($_POST['username'], $_POST['password'], $_POST['repeat_password']))
 		<form action="" method="post">
 			<p>
 				<label for="username">email:</label>
-				<input type="text" name="username" id="username" />
+				<input type="text" name="username" id="username" value="<?php if (isset($_POST['username'])) echo htmlentities($_POST['username']); ?>" />
 			</p>
 			<p>
 				<label for="password">Password:</label>
@@ -80,6 +82,8 @@ if (isset($_POST['username'], $_POST['password'], $_POST['repeat_password']))
 			<p>
 				<input type="submit" value="Register" />
 			</p>
+			
+			<p>Have account?<a href="login.php"><b>  Log In</b></a></p>
 		</form>
 	</body>
 </html>
